@@ -1,5 +1,5 @@
 var { coursesData } = require('./dummyData.js')
-
+var courseId = 4
 var getCourse = function(args) { 
     return coursesData.find(c => c.id === args.id)
 }
@@ -20,14 +20,17 @@ var updateCourseTopic = function({id, topic}) {
 }
 
 var createCourse = function({author, title, topic, url, description}) {
+    courseId = courseId + 1
     var newCourse = {
-        id: 1,
+        id: courseId,
         title,
         author,
         description,
         topic,
         url
     }
+    coursesData.push(newCourse)
+    return newCourse
 }
 
 module.exports = {

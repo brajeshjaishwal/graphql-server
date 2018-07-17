@@ -1,7 +1,7 @@
 var { coursesData } = require('./db.js')
 
 var getCourse = function(args) { 
-    return coursesData.findById(c => c.id === args.id)
+    return coursesData.findById({id: args.id})
 }
 
 var getCourses = function(args) {
@@ -20,14 +20,17 @@ var updateCourseTopic = function({id, topic}) {
 }
 
 var createCourse = function({author, title, topic, url, description}) {
+    var maxid = coursesData.find().sort('id')
     var newCourse = {
-        id: 1,
+        id: maxid + 1,
         title,
         author,
         description,
         topic,
         url
     }
+    coursesData.push(newCourse)
+    return newCourse
 }
 
 module.exports = {

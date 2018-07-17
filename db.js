@@ -16,4 +16,5 @@ mongoose.connection.once('open', () => {
     console.log(`mongodb is running on ${dbport}`)
 })
 
-module.exports = mongoose.model("coursesData", courseSchema)
+var coursesData = mongoose.model("courses", courseSchema)
+module.exports = coursesData

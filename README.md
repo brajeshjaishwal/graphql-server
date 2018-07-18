@@ -7,6 +7,9 @@ Start server by running node index.js command on command prompt
     Express server is running on port 4000
     
 In browser enter http://localhost:4000/courseapi
+
+and in GraphiQL
+
 1.
 {
   info

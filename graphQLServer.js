@@ -3,7 +3,7 @@ var { schema } = require('./schema')
 var gqlServer = require('express-graphql')
 
 var graphqlserver = gqlServer({
-    schema: schema,
+    schema,
     rootValue: resolvers,
     pretty: true,
     graphiql: true

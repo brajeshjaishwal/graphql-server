@@ -1,5 +1,51 @@
-var { buildSchema } = require('graphql')
+var { 
+        buildSchema, 
+        GraphQLObjectType,
+        GraphQLString,
+        GraphQLInt,
+        GraphQLSchema
+    } = require('graphql')
 
+const axios = require('axios')
+
+var url = "http://localhost:3000/courses/"
+
+const courseType = new GraphQLObjectType({
+    name: "Course",
+    fields: {
+        id: { type: GraphQLInt },
+        title: { type: GraphQLString },
+        author: { type: GraphQLString },
+        description: { type: GraphQLString },
+        topic: { type: GraphQLString },
+        url: { type: GraphQLString }
+    }
+})
+
+const RootQuery = new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+        info: {
+            type: GraphQLString,
+            resolve: () =>{
+                return "GraphQl course api v2"
+            }
+        },
+        course: {
+            type: courseType,
+            args: { 
+                id: { 
+                    type: GraphQLInt 
+                }
+            },
+            resolve: (parentValue, args) => {
+                return axios.get(`${url}${args.id}`).then(
+                    resp => resp.data
+                )
+            }
+        }
+    }
+})
 // GraphQL schema
 var schema = buildSchema(`
     type Query {
@@ -23,4 +69,7 @@ var schema = buildSchema(`
     }
 `);
 
-module.exports.schema = schema
+module.exports.schema = new GraphQLSchema( {
+    query: RootQuery
+})
+//module.exports.schema = schema

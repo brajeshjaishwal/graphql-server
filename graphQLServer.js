@@ -1,5 +1,5 @@
 var { resolvers } = require('./resolvers')
-var { schema } = require('./schema.graphql')
+var { schema } = require('./schema')
 var gqlServer = require('express-graphql')
 
 var graphqlserver = gqlServer({

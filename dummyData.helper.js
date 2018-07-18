@@ -19,8 +19,9 @@ var updateCourseTopic = function({id, topic}) {
     return found
 }
 
-var createCourse = function({author, title, topic, url, description}) {
-    courseId = courseId + 1
+var createCourse = function({title, author, description, topic, url}) {
+    courseId = coursesData.length > 0 ? coursesData[coursesData.length - 1].id + 1 : 1
+
     var newCourse = {
         id: courseId,
         title,
@@ -29,6 +30,7 @@ var createCourse = function({author, title, topic, url, description}) {
         topic,
         url
     }
+    
     coursesData.push(newCourse)
     return newCourse
 }

@@ -12,14 +12,14 @@ var getCourses = function(args) {
     }
 }
 
-var updateCourseTopic = function({id, topic}) {
+var updateCourseTopic1111 = function({id, topic}) {
     var found = coursesData.find(c => c.id === id)
     if(found)
         found.topic = topic
     return found
 }
 
-var createCourse = function({author, title, topic, url, description}) {
+var createCourse = function({title, author, description, topic, url}) {
     var maxid = coursesData.find().sort('id')
     var newCourse = {
         id: maxid + 1,

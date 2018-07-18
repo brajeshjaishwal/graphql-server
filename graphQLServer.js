@@ -1,8 +1,8 @@
 var { resolvers } = require('./resolvers')
 var { schema } = require('./schema.graphql')
-var express_graphql = require('express-graphql')
+var gqlServer = require('express-graphql')
 
-var graphqlserver = express_graphql({
+var graphqlserver = gqlServer({
     schema: schema,
     rootValue: resolvers,
     pretty: true,

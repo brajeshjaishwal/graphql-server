@@ -10,6 +10,7 @@ var schema = buildSchema(`
 
     type Mutation {
         updateCourseTopic(id: Int!, topic: String!): Course!
+        createCourse(title: String!, author: String!, description: String!, topic: String!, url: String!): Course!
     }
 
     type Course {

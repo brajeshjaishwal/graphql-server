@@ -1,4 +1,4 @@
-var { getCourse, getCourses, createCourse, updateCourseTopic } = require('./dummyData.helper')
+var { getCourse, getCourses, updateCourseTopic, createCourse } = require('./dummyData.helper')
 
 var getInfo = function() {
     return 'course graphql api'

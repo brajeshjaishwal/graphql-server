@@ -4,10 +4,17 @@ const Schema = mongoose.Schema
 const courseSchema = new Schema({
     id: Number,
     title: String,
-    author: String,
+    author: Number,
     description: String,
     topic: String,
     url: String
+})
+
+const authorSchema = new Schema({
+    id: Number,
+    name: String,
+    country: String,
+    social: String
 })
 
 const dbport = 'mongodb://localhost:27017/courses'
@@ -17,4 +24,9 @@ mongoose.connection.once('open', () => {
 })
 
 var coursesData = mongoose.model("courses", courseSchema)
-module.exports = coursesData
+var authorsData = mongoose.model("authors", authorSchema)
+
+module.exports = {
+    coursesData,
+    authorsData
+}

@@ -1,0 +1,48 @@
+{
+    "courses": [
+        {
+            "id": 1,
+            "title": "The Complete Node.js Developer Course",
+            "authorId": 1,
+            "description": "Learn Node.js by building real-world applications with Node, Express, MongoDB, Mocha, and more!",
+            "topic": "Node.js",
+            "url": "https://codingthesmartway.com/courses/nodejs/"
+        },
+        {
+            "id": 2,
+            "title": "Node.js, Express & MongoDB Dev to Deployment",
+            "authorId": 2,
+            "description": "Learn by example building & deploying real-world Node.js applications from absolute scratch",
+            "topic": "Node.js",
+            "url": "https://codingthesmartway.com/courses/nodejs-express-mongodb/"
+        },
+        {
+            "id":3,
+            "title": "Graph QL, Complete guide",
+            "authorId": 1,
+            "description": "Simple api implementation using Graph QL",
+            "topic": "GraphQL",
+            "url": "https://codingthesmartway.com/courses/GraphQL/"
+        }
+    ],
+    "authors": [ 
+        {
+            "id": 1,
+            "name": "Andrew Mead",
+            "country": "England",
+            "social": "http://twitter//amead#"
+        },
+        {
+            "id": 2,
+            "name": "Rob Percival",
+            "country": "USA",
+            "social": "http://twitter//rperc#"
+        },
+        {
+            "id": 3,
+            "name": "Brad Traversy",
+            "country": "Russia",
+            "social": "http://twitter//btrave#"
+        }
+    ]
+  }

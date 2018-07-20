@@ -1,10 +1,15 @@
 var { coursesData } = require('./dummyData.js')
 var courseId = 4
-var getCourse = function(args) { 
+
+var getInfo = () => {
+    return "GraphQL courses v1 api with dummy data"
+}
+
+var getCourse = (args) => { 
     return coursesData.find(c => c.id === args.id)
 }
 
-var getCourses = function(args) {
+var getCourses = (args) => {
     if (args.topic) {
         return coursesData.filter(course => course.topic === args.topic);
     } else {
@@ -12,23 +17,23 @@ var getCourses = function(args) {
     }
 }
 
-var updateCourseTopic = function({id, topic}) {
-    var found = coursesData.find(c => c.id === id)
+var updateCourseTopic = (args) => {
+    var found = coursesData.find(c => c.id === args.id)
     if(found)
         found.topic = topic
     return found
 }
 
-var createCourse = function({title, author, description, topic, url}) {
+var createCourse = (args) => {
     courseId = coursesData.length > 0 ? coursesData[coursesData.length - 1].id + 1 : 1
 
     var newCourse = {
         id: courseId,
-        title,
-        author,
-        description,
-        topic,
-        url
+        title: args.title,
+        authors: args.authors,
+        description: args.description,
+        topic: args.topic,
+        url: args.url
     }
     
     coursesData.push(newCourse)
@@ -36,6 +41,7 @@ var createCourse = function({title, author, description, topic, url}) {
 }
 
 module.exports = {
+    getInfo,
     getCourse,
     getCourses,
     updateCourseTopic,

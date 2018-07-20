@@ -1,25 +1,37 @@
-var { 
+const { 
         buildSchema, 
         GraphQLObjectType,
         GraphQLString,
         GraphQLInt,
+        GraphQLList,
         GraphQLSchema
     } = require('graphql')
 
-const axios = require('axios')
-
-var url = "http://localhost:3000/courses/"
+const helper = require('./dbServer.helper')
 
 const courseType = new GraphQLObjectType({
     name: "Course",
-    fields: {
+    fields: () => ({
         id: { type: GraphQLInt },
         title: { type: GraphQLString },
-        author: { type: GraphQLString },
+        authors: { 
+            type: authorType,
+            resolve: (parentValue, args) => helper.getAuthor(parentValue.id)
+        },
         description: { type: GraphQLString },
         topic: { type: GraphQLString },
         url: { type: GraphQLString }
-    }
+    })
+})
+
+const authorType = new GraphQLObjectType({
+    name: "Author",
+    fields: () => ({
+        id: { type: GraphQLInt },
+        name: { type: GraphQLString },
+        country: { type: GraphQLString },
+        social: { type: GraphQLString }
+    })
 })
 
 const RootQuery = new GraphQLObjectType({
@@ -27,9 +39,7 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         info: {
             type: GraphQLString,
-            resolve: () =>{
-                return "GraphQl course api v2"
-            }
+            resolve: helper.getInfo
         },
         course: {
             type: courseType,
@@ -38,38 +48,20 @@ const RootQuery = new GraphQLObjectType({
                     type: GraphQLInt 
                 }
             },
-            resolve: (parentValue, args) => {
-                return axios.get(`${url}${args.id}`).then(
-                    resp => resp.data
-                )
-            }
+            resolve: (parentValue, args) => helper.getCourse(args.id)
+        },
+        courses: {
+            type: new GraphQLList(courseType),
+            args: {
+                topic: {
+                    type: GraphQLString
+                }
+            },
+            resolve: (parentValue, args) => helper.getCourses(args.topic)
         }
     }
 })
-// GraphQL schema
-var schema = buildSchema(`
-    type Query {
-        info: String!
-        course(id: Int!): Course
-        courses(topic: String): [Course]
-    },
-
-    type Mutation {
-        updateCourseTopic(id: Int!, topic: String!): Course!
-        createCourse(title: String!, author: String!, description: String!, topic: String!, url: String!): Course!
-    }
-
-    type Course {
-        id: Int
-        title: String
-        author: String
-        description: String
-        topic: String
-        url: String
-    }
-`);
 
 module.exports.schema = new GraphQLSchema( {
     query: RootQuery
 })
-//module.exports.schema = schema

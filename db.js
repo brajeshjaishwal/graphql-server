@@ -16,7 +16,7 @@ const authorSchema = new Schema({
     country: String,
     social: String
 })
-
+const mlabUrl = 'mongodb://brajesh:yesha#123@ds231758.mlab.com:31758/blyricaldb'
 const dbport = 'mongodb://localhost:27017/courses'
 mongoose.connect(dbport)
 mongoose.connection.once('open', () => {

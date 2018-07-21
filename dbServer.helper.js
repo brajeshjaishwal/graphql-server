@@ -31,8 +31,19 @@ const updateCourseTopic = (args) => {
 
 }
 
-const createCourse = (args) => {
+const createCourse = ({title, author, description, url, topic}) => {
+    return axios.post(`${courseUrl}`, {title, author, description, url, topic})
+        .then(resp => resp.data)
+}
 
+const deleteCourse = (id) => {
+    return axios.delete(`${courseUrl}/${id}`)
+        .then(resp => resp.data)
+}
+
+const updateCourse = (args) => {
+    return axios.patch(`${courseUrl}/${args.id}`, args)
+        .then(resp => resp.data)
 }
 
 module.exports = {
@@ -41,5 +52,7 @@ module.exports = {
     getCourse,
     getCourses,
     updateCourseTopic,
-    createCourse
+    createCourse,
+    deleteCourse,
+    updateCourse
 }

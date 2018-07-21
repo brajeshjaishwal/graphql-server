@@ -4,7 +4,8 @@ const {
         GraphQLString,
         GraphQLInt,
         GraphQLList,
-        GraphQLSchema
+        GraphQLSchema,
+        GraphQLNonNull
     } = require('graphql')
 
 const helper = require('./dbServer.helper')
@@ -35,7 +36,7 @@ const authorType = new GraphQLObjectType({
 })
 
 const RootQuery = new GraphQLObjectType({
-    name: 'RootQueryType',
+    name: 'RootQuery',
     fields: {
         info: {
             type: GraphQLString,
@@ -62,6 +63,43 @@ const RootQuery = new GraphQLObjectType({
     }
 })
 
+const Mutation = new GraphQLObjectType({
+    name: "mutation",
+    fields: () => ({
+        createCourse: {
+            type: courseType,
+            args: {
+                title: { type: new GraphQLNonNull(GraphQLString) },
+                topic: { type: new GraphQLNonNull(GraphQLString) },
+                description: { type: GraphQLString },
+                author: { type: new GraphQLNonNull(GraphQLString) },
+                url: { type: GraphQLString },
+
+            },
+            resolve: (parentValue, args) => helper.createCourse(args)
+        },
+        deleteUser: {
+            type: courseType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLInt)}
+            },
+            resolve: (parentValue, args) => helper.deleteCourse(args.id)
+        },
+        updateCourse: {
+            type: courseType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLInt) },
+                topic: { type: GraphQLString },
+                title: { type: GraphQLString },
+                url: { type: GraphQLString },
+                description: { type: GraphQLString },
+                author: { type: GraphQLString }
+            },
+            resolve: (parentValue, args) => helper.updateCourse(args)
+        }
+    })
+})
 module.exports.schema = new GraphQLSchema( {
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
 })
